@@ -10,7 +10,8 @@ dtLong[, PortfolioPrice := Portfolio %% 10 + 1]
 dtLong[, Portfolio := NULL]
 dtLong[Returns == - 99.99, Returns := NA]
 dtLong[, Returns := Returns/100]
+dtLong[, Date := as.Date(as.character(Date), format = "%Y%m%d")]
 dtLong
 
-write.table(dtLong, file = "../data/FF100_processed.csv", row.names = FALSE)
+write.table(dtLong, file = "../data/FF100_processed.csv", row.names = FALSE, sep = ",")
 
