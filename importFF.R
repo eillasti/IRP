@@ -12,5 +12,6 @@ dtLong[Returns == - 99.99, Returns := NA]
 dtLong[, Returns := Returns/100]
 dtLong
 
+#change
 write.table(dtLong, file = "../data/FF100_processed.csv", row.names = FALSE)
 
