@@ -38,7 +38,7 @@ for (i in 1:n_crncy){
   dt_merge[, s := log(spot)]
   dt_merge[, f := log(fwd)]
   dt_merge[, rf := (s - f) * 12]
-  dt_merge = dt_merge[abs(rf) < 0.2]
+#   dt_merge = dt_merge[abs(rf) < 0.2]
   dt_merge[, rx := (s - lag(s) + rf / 365.25 * as.numeric(date - lag(date)))]
   dt_merge = dt_merge[abs(rx) < 0.1]
 #   dt_merge[, rx := rx * 252]
