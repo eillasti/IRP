@@ -1,6 +1,6 @@
 library(data.table)
 dtFF = fread("../data/FF100_processed.csv", sep = ",")
-
+dtFF[, Date := as.Date(Date)]
 #Calculate factors
 dtFF[, HML := 0]
 dtFF[PortfolioPrice == 1, HML := mean(Returns, na.rm = TRUE), by = c("Date", "PortfolioPrice")]
