@@ -43,6 +43,23 @@ monthlyReturns
 monthlyReturns = monthlyReturns[, list(asset, date, rx)]
 save(monthlyReturns, file = "../Data/monthlyReturns.RData")
 
+###Daily spot returns
+
+spotReturns = spot[!is.na(px_last), spot, keyby = c("asset", "date")]
+spotReturns[, rx := log(spot) - stats::lag(log(spot)), by = asset]
+spotReturns = spotReturns[!is.na(rx)]
+spotReturns = merge(spotReturns,  fwd1m)
+spotReturns[, rf := (log(fwd) - log(spot)) * 12]
+spotReturns = spotReturns[, list(asset, date,  rx, rf)]
+spotReturns
+save(spotReturns, file = "../Data/spotReturns.RData")
+
+
+# spotReturns[, t1 := as.numeric(date - min(date))]
+# spotReturns[, rfn := (rf - mean(rf, na.rm = TRUE)) / ifelse(.N != 1, sd(rf, na.rm = TRUE), 1), by = "date"]
+
+# spotReturns[asset == "JPY" & rf > 0]
+
 ###Risk factors
 
 #volatilities
