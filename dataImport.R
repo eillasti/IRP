@@ -24,6 +24,8 @@ spot[asset %in% c("EUR", "GBP", "AUD", "NZD"), px_last := 1/px_last]
 spot[, spot := 1 / px_last]
 setkey(spot, asset, date)
 # spot = spot[asset %in% c("EUR", "GBP", "CHF", "JPY", "NZD", "AUD", "CAD", "SEK", "NOK", "DKK")]
+save(spot, file = "../Data/spot.RData")
+
 
 fwd = fread("../data/newData/fwd.csv")
 fwd = rbind(fwd, NZD[ticker != "NZD Curncy"])
@@ -36,3 +38,8 @@ fwd[, asset := substr(ticker, 1, 3)]
 fwd[, maturity := substr(ticker, 4, 5)]
 fwd[asset %in% c("EUR", "GBP", "AUD", "NZD"), px_last := 1/px_last]
 fwd[, fwd := 1/px_last]
+save(fwd, file = "../Data/fwd.RData")
+
+
+
+
