@@ -8,6 +8,7 @@ spot = fread("../data/newData/spot.csv")
 NZD = fread("../data/newData/NZD.csv")
 spot = rbind(spot, NZD[ticker == "NZD Curncy"])
 spot = spot[ticker != "GHS Curncy"]
+spot = spot[ticker != "TRY Curncy"]
 
 spot[, dupl := seq_along(px_last) > 1, by = c("ticker", "date")]
 spot = spot[dupl != TRUE]
@@ -88,3 +89,15 @@ dtFF = fread("../data/FF.csv")
 dtFF[, date := as.Date(as.character(Date), "%Y%m%d")]
 dtFF = dtFF[, list(date, MKT = Mkt, SMB, HML)]
 save(dtFF, file = "../Data/dtFF.RData")
+
+
+###FF portfolios
+dtPortfoliosFF = fread("../data/FF100_processed.csv", sep = ",")
+dtPortfoliosFF[, Date := as.Date(Date)]
+dtPortfoliosFF = dtPortfoliosFF[!is.na(Returns)]
+dtPortfoliosFF = dtPortfoliosFF[, list(date = Date, 
+                                       asset = paste0("Size", PortfolioSize, "Price", PortfolioPrice),
+                                       rx = log(Returns+1))]
+dtPortfoliosFF = dtPortfoliosFF[date > "1980-01-01"]
+setkey(dtPortfoliosFF, asset, date)
+save(dtPortfoliosFF, file = "../Data/dtPortfoliosFF.RData")

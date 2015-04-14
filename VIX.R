@@ -22,7 +22,7 @@ dtVIX[, V_pred := exp(predict(model))]
 dtVIX[, dV := V - exp(predict(model))]
 dtVIX[, Vol := sqrt(V)]
 dtVIX[, dVol := sqrt(V) - sqrt(exp(predict(model)))]
-# dtVIX[, dV := log(V) - log(V_pred)]
+dtVIX[, dV := log(V) - log(V_pred)]
 
 # 
 # 

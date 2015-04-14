@@ -27,7 +27,7 @@ dtPortfolios = merge(dtPortfolios, dtDOL, by = "date", all.x = TRUE, all.y = FAL
 
 dtPortfoliosFX = dtPortfolios
 save(dtPortfoliosFX, file = "../Data/dtPortfoliosFX.RData")
-
+dtPortfoliosFX[, mean(rx) * 252, by = "portfolio"]
 # dtPortfolios[, mean(rx) *252, by = "portfolio"]
 
 # sd(dtRV$RVol) * sqrt(252)
